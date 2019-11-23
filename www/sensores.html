@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Capture Photo</title>
-
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8">
     var pictureSource;   // picture source
@@ -78,11 +78,11 @@
     </script>
   </head>
   <body>
-  		<h1>BOTONES SIN BOOTSTRAP CSS</h1>
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+  		<h1>BOTONES CON BOOTSTRAP CSS</h1>
+    <button class="btn btn-primary  btn-block" Full-Width Button Default onclick="capturePhoto();">Capture Photo</button>
+    <button class="btn btn-dark btn-block" Full-Width Button onclick="capturePhotoEdit();">Capture Editable Photo</button>
+    <button class="btn btn-success btn-block" Full-Width Button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button>
+    <button class="btn btn-warning btn-block" Full-Width Button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
     <a href="hoja4.html">Botones con bootstrap</a><br>
