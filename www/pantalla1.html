@@ -10,30 +10,34 @@
     <form>
       <div class="from-group">
       <label> Nombre </label><br>
-      <input type="text" class="form-control" placeholder="first name">
+      <input type="text" id="nombre"  class="form-control" placeholder="first name">
     </div>
     <div class="from-group">
       <label>Apellidos</label><br>
-      <input type="text" class="form-control" placeholder="Last name">
+      <input type="text" id="apellido" class="form-control" placeholder="Last name">
     </div>
       <div class="from-group">
       <label>Fecha de nacimiento</label><br>
-      <input type="date" class="form-control" placeholder="born date">
+      <input type="date" id="fecha" class="form-control" placeholder="born date">
     </div>
     <div class="from-group">
       <label>Correo</label><br>
-      <input type="email" class="form-control" placeholder="email">
+      <input type="email" id="correo" class="form-control" placeholder="email">
     </div>
     <div class="from-group">
       <label>Contraseña</label><br>
-      <input type="password" class="form-control" placeholder="password">
+      <input type="password" id="contraseña" class="form-control" placeholder="password">
     </div>
     <div class="from-group">
       <label>Número Telefonico</label><br>
-      <input type="number" class="form-control" placeholder="telephone"><br>
+      <input type="number" id="numero" class="form-control" placeholder="telephone"><br>
     </div>
     <div class="from-group">
+      <a href ="" onMouseOver="misdatos()">link</a>
 <button type="submit" class="btn btn-primary btn-lg btn-block">Aceptar</button>
   </form>
+  <button class="btn btn-default" onclick="populateDB()">Show All</button>
+  <script src="datos.js"></script>
+
   </body>
 </html>
