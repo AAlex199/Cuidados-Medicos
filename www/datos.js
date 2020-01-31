@@ -9,17 +9,17 @@ var vnumero=document.getElementById("numero").value;
 
 
 
- alert(vnombre "/"+ vapellido + vfecha + vcorreo + vcontraseña + vnumero);
-}
 
-var currentRow;
+
+document.addEventListener("deviceready", onDeviceReady, false);var currentRow;
         // Populate the database
         //
         function populateDB(tx) {
+          alert("creando base de datos");
         //	tx.executeSql('DROP TABLE IF EXISTS DEMO2 ');
-        ///	alert("drop");
-            tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO2 (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre,apellido,correo,ubicacion,coment,tag,fecha,hora,otro)');
-          //  alert("creandoDB");
+          alert("drop");
+            tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO2 (id INTEGER PRIMARY KEY AUTOINCREMENT, name,ubicacion,coment,tag,fecha,hora,otro)');
+          alert("base de datos creada");
         }
         // Query the database
         //
@@ -43,4 +43,9 @@ var currentRow;
             db.transaction(populateDB, errorCB, successCB);
            // alert("onDeviceReady");
         }
-        
+
+        function goInsert() {
+            var db = window.openDatabase("Database", "1.0", "Cordova Demo2", 200000);
+            db.transaction(insertDB, errorCB, successCB);
+
+        }
