@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <title>Medicamentos</title>
+    <script type="text/javascript" charset="utf-8">
+    // Wait for Cordova to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Cordova is ready
+    //
+    function onDeviceReady() {
+               alert("Iniciando");
+        var db = window.openDatabase("[Database](../database/database.html)", "1.0", "Cordova Demo", 200000);
+        db.transaction(populateDB, errorCB, successCB);
+    //   db.transaction(queryDB, errorCB, successCB);
+    }
+
+    // Populate the database
+    //
+    function populateDB(tx) {
+      alert("ingreando a tabla");
+         tx.executeSql('DROP TABLE IF EXISTS DEMO');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, nombre, recurencia, dosis, dia)');
+         tx.executeSql('INSERT INTO DEMO (id, nombre, recurencia, dosis, dia) VALUES (1, "paracetamol","cada 5 hrs",1,"lunes")');
+         tx.executeSql('INSERT INTO DEMO (id, nombre, recurencia, dosis, dia) VALUES (2, "antigripal","cada 6 hrs",2,"miercoles")');
+         tx.executeSql('INSERT INTO DEMO (id, nombre, recurencia, dosis, dia) VALUES (3, "Aspirina","cada 4 hrs",3,"viernes")');
+       tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);
+       alert("tabla creada");
+    }
+
+    // Transaction error callback
+    //
+    function errorCB(err) {
+        alert("Error processing SQL: "+err);
+    }
+
+    // Transaction success callback
+    //
+    function successCB() {
+        alert("success!");
+    }
+
+    function queryDB(tx){
+      alert("/Consultando");
+      tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);
+      alert("creando query");
+    }
+
+function querySuccess(tx, results) {
+  var tblText='<table id="t01"><tr><th> # id </th><th>nombre</th><th>recurencia<th></th><th>dosis</th><th>dia</th></tr>';
+  var len = results.rows.length;
+  for (var i = 0; i < len; i++) {
+  var tmpArgs=results.rows.item(i).id + ",'" + results.rows.item(i).nombre  +",'"+ results.rows.item(i).recurencia +",'"+ results.rows.item(i).dosis  +",'"+ results.rows.item(i).dia +"'";
+  tblText +='<tr onclick="goPopup('+ tmpArgs + ');">'+
+         '<td>' + results.rows.item(i).id      +'</td>'+
+         '<td>' + results.rows.item(i).nombre  +'</td>'+
+         '<td>' + results.rows.item(i).recurencia   +'</td>'+
+         '<td>' + results.rows.item(i).dosis   +'</td>'+
+         '<td>' + results.rows.item(i).dia   +'</td>'+
+
+         '</tr>';
+  }
+
+  tblText +="</table>";
+            document.getElementById("tblDiv").innerHTML =tblText;
+}
+
+
+    function errorCB(err){
+    alert("Error processing SQL: "+err.code + err.description);
+    }
+
+  function goPopup(row,rowname,rowrecurencia,rowdosis,rowdia) {
+        currentRow=row;
+        document.getElementById("qrpopup").style.display="block";
+        document.getElementById("editNameBox").value = rowname;
+        document.getElementById("editrecurenciaBox").value = rowrecurencia;
+        document.getElementById("editdosisBox").value = rowdosis;
+        document.getElementById("editdiaBox").value = rowdia;
+
+    }
+
+function mueveReloj(){
+  momentoActual = new Date()
+  hora =  momentoActual.getHours()
+  horaprox = momentoActual.getHours()+8
+  minuto = momentoActual.getMinutes()
+  segundo = momentoActual.getSeconds()
+  horaImprimible = hora + " : " + minuto + " : " + segundo
+  horaImprimibleaprox = 13 + " : " + 31 + " : " + 00
+  //horaImprimibleaprox = horaprox + " : " + minuto + " : " + segundo
+  document.form_reloj.reloj.value = horaImprimible
+  document.form_reloj.relojproxtoma.value = horaImprimibleaprox
+  if (horaImprimible == horaImprimibleaprox) {
+    alert("toma tu medicina");
+
+}
+
+
+ setTimeout("mueveReloj()",1000)
+}
+
+var nombremedicina = null; var recurencia = null; var dosis = null; var status = null;
+
+function sub()
+{
+  nombremedicina = document.getElementsByName("nombremedicina")[0].value;
+ recurencia = document.getElementsByName("recurencia")[0].value;
+ descripcionr=document.getElementsByName("descripcionr")[0].value;
+ cantidad=document.getElementsByName("cantidad")[0].value;
+ dosis=document.getElementsByName("dosis")[0].value;
+ alert("Nombre del medicamento "+nombremedicina+" "+recurencia+" veces al "+descripcionr+", "+cantidad+" "+dosis);
+
+  imprimetomas();
+  };
+function imprimetomas()
+{
+  fechainicial=new Date();
+  hora = momentoActual.getHours();
+  minuto = momentoActual.getMinutes();
+  segundo = momentoActual.getSeconds();
+  recurencia = document.getElementsByName("recurencia")[0].value;
+  cadahoras= 24/recurencia;
+  alert("Son cada "+cadahoras+" horas al dia");
+alert("Usted va a iniciar el tratamiento ahora " +hora+ " : " + minuto + " : " + segundo + " y le recordaremos lo siguiente:");
+
+for (var i = 1; i <= recurencia; i++) {
+nrecurencia=i*cadahoras; nhora=hora+nrecurencia;
+if (nhora>24 ){
+  nhora=nhora-24
+  describe=nhora + " : " + minuto + " : " + segundo+ "*"
+}
+
+else{
+  describe=nhora + " : " + minuto + " : " + segundo
+}
+alert("Las proximas tomas son: "+describe);
+
+}
+
+}
+
+  </script>
+
+
+  </head>
+  <body>
+    <form name="form" action="" method="get">
+      <div class="from-group"> <label>Primer Medicamento </label><br>
+        <input type="text" name="nombremedicina" class="form-control" placeholder="Nombre del Medicamento"> </div>
+        <div class="from-group">
+          <div class="row">
+            <div class="col">
+        <input type="number" class="form-control" name="recurencia" placeholder="Número de veces ">
+      </div> <div class="col">
+        <label for="descripcionr"></label> <select id="descripcionr" name="descripcionr">
+          <option value="dia">dia</option>
+          <option value="semana">semana</option>
+          <option value="mes">mes</option>
+          <option value="semestre">semestre</option>
+          <option value="anual">anual</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="from-group">
+    <div class="row">
+      <div class="col">
+        <input type="number" class="form-control" name="cantidad" placeholder="Cantidad y dosis">
+      </div>
+      <div class="col"> <label for="dosis"></label> <select id="dosis" name="dosis">
+        <option value="tableta">Tabletas</option>
+        <option value="ml">Mililitros</option>
+        <option value="gr">Gramos</option>
+        <option value="inyecciones">Inyecciones</option>
+      </select>
+    </div>
+  </div>
+</div>
+<button type="check" class="btn btn-primary btn-lg btn-block" onclick="sub()">Guardar</button>
+    </form>
+
+<!--<button class="btn btn-primary btn-lg btn-block" onclick="onDeviceReady()">Creador de Tabla</button>-->
+<div id="tblDiv"></div>
+
+<body onload="mueveReloj()">
+<form name="form_reloj">
+  Hora actual<br>
+  <input type="text" name="reloj" size="10"><br>
+  Hora de alarma para aproxima toma<br>
+  <input type="text" name="relojproxtoma" size="10">
+
+</form>
+
+  </body>
+</html>
