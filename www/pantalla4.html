@@ -35,14 +35,21 @@
         var map;
        function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 43.5293, lng: -5.6773},
-            zoom: 13,
+        center: {lat: 19.4277811, lng: -99.1370205},
+            zoom: 10,
           });
-          var marker = new google.maps.Marker({
-            position: {lat: 43.542194, lng: -5.676875},
+          var markerf1 = new google.maps.Marker({
+            position: {lat: 19.4277811, lng: -99.1370205},
             map: map,
-      title: 'Acuario de Gijón'
+      title: 'Farmacia SP'
           });
+
+          var markerl2 = new google.maps.Marker({
+            position: {lat: 19.3636817, lng: -99.1630437},
+            map: map,
+      title: 'Farmacia pr'
+          });
+
         }
 
 
